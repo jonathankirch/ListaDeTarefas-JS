@@ -34,3 +34,17 @@ function tarefaConcluida(event) {
     event.target.classList.toggle("tarefaConcluida");
 }
 
+// Carregar tarefas salvas do armazenamento local ao carregar a página
+document.addEventListener('DOMContentLoaded', function() {
+    const tarefasSalvas = localStorage.getItem('tarefas');
+    if (tarefasSalvas) {
+        tarefas = JSON.parse(tarefasSalvas);
+        for (const tarefa of tarefas) {
+            const newItem = document.createElement("li");
+            newItem.className = "newitem";
+            newItem.addEventListener("click", tarefaConcluida);
+            newItem.innerHTML = tarefa;
+            localTarefas.appendChild(newItem);
+        }
+    }
+});
