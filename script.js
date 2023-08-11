@@ -1,3 +1,16 @@
+document.addEventListener('DOMContentLoaded', function() {
+    const cookieData = getCookie('tarefas');
+    if (cookieData) {
+        tarefas = JSON.parse(cookieData);
+    }
+});
+
+function getCookie(name) {
+    const value = `; ${document.cookie}`;
+    const parts = value.split(`; ${name}=`);
+    if (parts.length === 2) return parts.pop().split(';').shift();
+}
+
 let tarefas = []
 
 let inputTarefa = document.querySelector('#inputTarefa')
@@ -14,6 +27,9 @@ function addTarefa(){
     let localTarefa = document.querySelector('#localTarefas')
         
     tarefas.push(inputTarefa.value)
+
+    // Armazenar a lista de tarefas em um cookie
+    document.cookie = `tarefas=${JSON.stringify(tarefas)}; expires=Thu, 01 Jan 2099 00:00:00 UTC; path=/`;
 
     // Novo item adicionado
     let NewItem = document.createElement("li")
@@ -34,17 +50,3 @@ function tarefaConcluida(event) {
     event.target.classList.toggle("tarefaConcluida");
 }
 
-// Carregar tarefas salvas do armazenamento local ao carregar a página
-document.addEventListener('DOMContentLoaded', function() {
-    const tarefasSalvas = localStorage.getItem('tarefas');
-    if (tarefasSalvas) {
-        tarefas = JSON.parse(tarefasSalvas);
-        for (const tarefa of tarefas) {
-            const newItem = document.createElement("li");
-            newItem.className = "newitem";
-            newItem.addEventListener("click", tarefaConcluida);
-            newItem.innerHTML = tarefa;
-            localTarefas.appendChild(newItem);
-        }
-    }
-});
