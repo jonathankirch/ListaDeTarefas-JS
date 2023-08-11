@@ -55,8 +55,8 @@ function addTarefa(){
     inputTarefa.value = "" 
     inputTarefa.focus()
     
-    //console.log(tarefas)
-    //console.log(NewItem)
+    console.log(tarefas)
+    console.log(NewItem)
 }
 
 //para adicionar a opcao de tarefa riscada quando for concluida
