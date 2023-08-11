@@ -2,20 +2,21 @@ document.addEventListener('DOMContentLoaded', function() {
     const cookieData = getCookie('tarefas');
     if (cookieData) {
         tarefas = JSON.parse(cookieData);
-    
-        // Selecionar a lista de tarefas
-        const localTarefa = document.querySelector('#localTarefas');
 
-        // Adicionar cada tarefa salva na lista
+        const localTarefa = document.querySelector('#localTarefas');
         for (const tarefa of tarefas) {
             const newItem = document.createElement("li");
             newItem.className = "newitem";
             newItem.addEventListener("click", tarefaConcluida);
-            newItem.innerHTML = tarefa;
+            newItem.textContent = tarefa.texto;
+            if (tarefa.concluida) {
+                newItem.classList.add("tarefaConcluida");
+            }
             localTarefa.appendChild(newItem);
         }
-    }    
+    }
 });
+
 
 function getCookie(name) {
     const value = `; ${document.cookie}`;
@@ -54,11 +55,27 @@ function addTarefa(){
     inputTarefa.value = "" 
     inputTarefa.focus()
     
-    console.log(tarefas)
-    console.log(NewItem)
+    //console.log(tarefas)
+    //console.log(NewItem)
+
+    tarefas.push({
+        texto: inputTarefa.value,
+        concluida: false
+    });
 }
 
 //para adicionar a opcao de tarefa riscada quando for concluida
 function tarefaConcluida(event) {
     event.target.classList.toggle("tarefaConcluida");
+    
+    const textoTarefa = event.target.textContent;
+    const tarefaIndex = tarefas.findIndex(tarefa => tarefa.texto === textoTarefa);
+    
+    if (tarefaIndex !== -1) {
+        tarefas[tarefaIndex].concluida = !tarefas[tarefaIndex].concluida;
+        updateCookie();
+    }
+}
+function updateCookie() {
+    document.cookie = `tarefas=${JSON.stringify(tarefas)}; expires=Thu, 01 Jan 2099 00:00:00 UTC; path=/`;
 }
