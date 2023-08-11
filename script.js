@@ -2,7 +2,19 @@ document.addEventListener('DOMContentLoaded', function() {
     const cookieData = getCookie('tarefas');
     if (cookieData) {
         tarefas = JSON.parse(cookieData);
-    }
+    
+        // Selecionar a lista de tarefas
+        const localTarefa = document.querySelector('#localTarefas');
+
+        // Adicionar cada tarefa salva na lista
+        for (const tarefa of tarefas) {
+            const newItem = document.createElement("li");
+            newItem.className = "newitem";
+            newItem.addEventListener("click", tarefaConcluida);
+            newItem.innerHTML = tarefa;
+            localTarefa.appendChild(newItem);
+        }
+    }    
 });
 
 function getCookie(name) {
@@ -12,6 +24,7 @@ function getCookie(name) {
 }
 
 let tarefas = []
+
 
 let inputTarefa = document.querySelector('#inputTarefa')
 inputTarefa.addEventListener("keydown", function(event) {
@@ -49,4 +62,3 @@ function addTarefa(){
 function tarefaConcluida(event) {
     event.target.classList.toggle("tarefaConcluida");
 }
-
