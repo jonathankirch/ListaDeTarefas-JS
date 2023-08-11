@@ -6,12 +6,11 @@
     <link rel="stylesheet" href="style.css">
     <title>Lista de Tarefas</title>
 </head>
-<script src="script.js"></script>
 <body>
     <h1>Lista de Tarefas</h1>
-    <label for="inputTarefa">Novas tarefas</label>
+    <label for="inputTarefa">Novas Tarefas</label>
     <input type="text" id="inputTarefa" placeholder="Digite aqui:">
-    <button onclick="addTarefa()">Adicionar</button>
+    <button id="addtarefa" onclick="addTarefa()">Adicionar</button>
 
     <div>
         <ul id="localTarefas">
@@ -19,5 +18,6 @@
         </ul>
     </div>
     
+    <script src="script.js"></script>
 </body>
 </html>

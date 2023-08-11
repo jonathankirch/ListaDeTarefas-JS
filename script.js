@@ -1,20 +1,36 @@
-
 let tarefas = []
+
+let inputTarefa = document.querySelector('#inputTarefa')
+inputTarefa.addEventListener("keydown", function(event) {
+    if (event.key === "Enter") {
+        event.preventDefault()
+
+        addTarefa()
+    }
+})
 
 function addTarefa(){
     let inputTarefa = document.querySelector('#inputTarefa')
     let localTarefa = document.querySelector('#localTarefas')
-    let novoLi = document.createElement("li")
         
     tarefas.push(inputTarefa.value)
-    novoLi = document.createTextNode(inputTarefa.value)
-    localTarefa.appendChild(novoLi)
+
+    // Novo item adicionado
+    let NewItem = document.createElement("li")
+    NewItem.className = "newitem"
+    NewItem.addEventListener("click", tarefaConcluida)
+    NewItem.innerHTML = `${inputTarefa.value}`
+    localTarefa.appendChild(NewItem)
 
     inputTarefa.value = "" 
     inputTarefa.focus()
     
     console.log(tarefas)
-    console.log(novoLi)
-
-    // precisa fazer a quebra de linha em cada item ainda
+    console.log(NewItem)
 }
+
+//para adicionar a opcao de tarefa riscada quando for concluida
+function tarefaConcluida(event) {
+    event.target.classList.toggle("tarefaConcluida");
+}
+
