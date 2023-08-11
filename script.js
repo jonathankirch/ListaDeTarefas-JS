@@ -57,11 +57,6 @@ function addTarefa(){
     
     //console.log(tarefas)
     //console.log(NewItem)
-
-    tarefas.push({
-        texto: inputTarefa.value,
-        concluida: false
-    });
 }
 
 //para adicionar a opcao de tarefa riscada quando for concluida
