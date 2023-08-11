@@ -8,7 +8,7 @@ document.addEventListener('DOMContentLoaded', function() {
             const newItem = document.createElement("li");
             newItem.className = "newitem";
             newItem.addEventListener("click", tarefaConcluida);
-            newItem.textContent = tarefa.texto;
+            newItem.textContent = tarefa.texto;  // Certifique-se de que essa linha está presente e correta
             if (tarefa.concluida) {
                 newItem.classList.add("tarefaConcluida");
             }
