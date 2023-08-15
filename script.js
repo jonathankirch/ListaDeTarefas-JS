@@ -15,9 +15,8 @@ document.addEventListener('DOMContentLoaded', function() {
             }
             localTarefa.appendChild(newItem);
         }
-    }
+    }    
 });
-
 
 function getCookie(name) {
     const value = `; ${document.cookie}`;
@@ -68,6 +67,7 @@ function tarefaConcluida(event) {
         updateCookie();
     }
 }
+
 function updateCookie() {
     document.cookie = `tarefas=${JSON.stringify(tarefas)}; expires=Thu, 01 Jan 2099 00:00:00 UTC; path=/`;
 }
