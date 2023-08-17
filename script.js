@@ -2,32 +2,35 @@ document.addEventListener('DOMContentLoaded', function() {
     const cookieData = getCookie('tarefas');
     if (cookieData) {
         tarefas = JSON.parse(cookieData);
-        
+    
         const localTarefa = document.querySelector('#localTarefas');
-        
-        tarefas = tarefas.filter(tarefa => !tarefa.excluido);
-        
-        for (const tarefa of tarefas) {
-            const newItem = document.createElement("li");
-            newItem.className = "newitem";
-            newItem.addEventListener("click", tarefaConcluida);
-            newItem.textContent = tarefa.texto;
-            
-            if (tarefa.concluida) {
-                newItem.classList.add("tarefaConcluida");
+
+        for (const [index, tarefa] of tarefas.entries()) {
+            if (!tarefa.excluido) { // Verifica se a tarefa não está marcada como excluída
+                const newItem = document.createElement("li");
+                newItem.className = "newitem";
+                newItem.addEventListener("click", tarefaConcluida);
+                newItem.textContent = tarefa.texto;
+                
+                if (tarefa.concluida) {
+                    newItem.classList.add("tarefaConcluida");
+                }
+                
+                const removeButton = document.createElement("button");
+                removeButton.textContent = "🗑️";
+                removeButton.dataset.index = index; // Armazena o índice da tarefa como atributo
+                removeButton.addEventListener("click", function(event) {
+                    deletar(event.target.dataset.index);
+                    atualizarTela(); // Atualiza a tela após a exclusão
+                });
+                
+                newItem.appendChild(removeButton);
+                localTarefa.appendChild(newItem);
             }
-            
-            const removeButton = document.createElement("button");
-            removeButton.textContent = "🗑️";
-            removeButton.addEventListener("click", function(event) {
-                deletar(newItem);
-            });
-            
-            newItem.appendChild(removeButton);
-            localTarefa.appendChild(newItem);
         }
     }    
 });
+
 function getCookie(name) {
     const value = `; ${document.cookie}`;
     const parts = value.split(`; ${name}=`);
@@ -65,9 +68,9 @@ function addTarefa() {
 
     const removeButton = document.createElement("button");
     removeButton.textContent = "🗑️";
-    removeButton.addEventListener("click", function(event) {
-        deletar(newItem); // Passa o elemento <li> como argumento
-    });
+    removeButton.addEventListener("click", function() {
+        deletar(novaTarefa.texto);
+    });    
     newItem.appendChild(removeButton);
 
     localTarefa.appendChild(newItem);
@@ -91,19 +94,42 @@ function tarefaConcluida(event) {
 }
 
 
-function deletar(listItem) {
-    const textoTarefa = listItem.textContent.trim();
+function deletar(textoTarefa) {
     const tarefaIndex = tarefas.findIndex(tarefa => tarefa.texto === textoTarefa);
 
     if (tarefaIndex !== -1) {
-        tarefas[tarefaIndex].excluido = true;
-        listItem.remove();
+        tarefas.splice(tarefaIndex, 1);
         updateCookie();
+        atualizarTela(); // Chame essa função para atualizar a tela após a remoção
     }
 }
 
+function atualizarTela() {
+    const localTarefa = document.querySelector('#localTarefas');
+    localTarefa.innerHTML = ''; // Limpa o conteúdo anterior
 
+    for (const tarefa of tarefas) {
+        if (!tarefa.excluido) {
+            const newItem = document.createElement("li");
+            newItem.className = "newitem";
+            newItem.addEventListener("click", tarefaConcluida);
+            newItem.textContent = tarefa.texto;
 
+            if (tarefa.concluida) {
+                newItem.classList.add("tarefaConcluida");
+            }
+
+            const removeButton = document.createElement("button");
+            removeButton.textContent = "🗑️";
+            removeButton.addEventListener("click", function() {
+                deletar(tarefa.texto);
+            });
+
+            newItem.appendChild(removeButton);
+            localTarefa.appendChild(newItem);
+        }
+    }
+}
 
 function updateCookie() {
     document.cookie = `tarefas=${JSON.stringify(tarefas)}; expires=Thu, 01 Jan 2099 00:00:00 UTC; path=/`;

@@ -21,7 +21,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 removeButton.dataset.index = index; // Armazena o índice da tarefa como atributo
                 removeButton.addEventListener("click", function(event) {
                     deletar(event.target.dataset.index);
-                    updateTela(); // Atualiza a tela após a exclusão
+                    atualizarTela(); // Atualiza a tela após a exclusão
                 });
                 
                 newItem.appendChild(removeButton);
@@ -68,9 +68,9 @@ function addTarefa() {
 
     const removeButton = document.createElement("button");
     removeButton.textContent = "🗑️";
-    removeButton.addEventListener("click", function(event) {
-        deletar(newItem); // Passa o elemento <li> como argumento
-    });
+    removeButton.addEventListener("click", function() {
+        deletar(novaTarefa.texto);
+    });    
     newItem.appendChild(removeButton);
 
     localTarefa.appendChild(newItem);
@@ -94,36 +94,37 @@ function tarefaConcluida(event) {
 }
 
 
-function deletar(index) {
-    if (index !== -1 && index < tarefas.length) {
-        tarefas[index].excluido = true;
+function deletar(textoTarefa) {
+    const tarefaIndex = tarefas.findIndex(tarefa => tarefa.texto === textoTarefa);
+
+    if (tarefaIndex !== -1) {
+        tarefas.splice(tarefaIndex, 1);
         updateCookie();
+        atualizarTela(); // Chame essa função para atualizar a tela após a remoção
     }
 }
 
-function updateTela() {
+function atualizarTela() {
     const localTarefa = document.querySelector('#localTarefas');
-    localTarefa.innerHTML = ''; // Limpa a lista
+    localTarefa.innerHTML = ''; // Limpa o conteúdo anterior
 
-    for (const [index, tarefa] of tarefas.entries()) {
+    for (const tarefa of tarefas) {
         if (!tarefa.excluido) {
             const newItem = document.createElement("li");
             newItem.className = "newitem";
             newItem.addEventListener("click", tarefaConcluida);
             newItem.textContent = tarefa.texto;
-            
+
             if (tarefa.concluida) {
                 newItem.classList.add("tarefaConcluida");
             }
-            
+
             const removeButton = document.createElement("button");
             removeButton.textContent = "🗑️";
-            removeButton.dataset.index = index;
-            removeButton.addEventListener("click", function(event) {
-                deletar(event.target.dataset.index);
-                updateTela();
+            removeButton.addEventListener("click", function() {
+                deletar(tarefa.texto);
             });
-            
+
             newItem.appendChild(removeButton);
             localTarefa.appendChild(newItem);
         }
