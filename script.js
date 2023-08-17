@@ -81,17 +81,13 @@ function addTarefa() {
     //console.log(tarefas)
 }
 
-function tarefaConcluida(event) {
-    event.target.classList.toggle("tarefaConcluida");
-    
-    const textoTarefa = event.target.textContent;
-    const tarefaIndex = tarefas.findIndex(tarefa => tarefa.texto === textoTarefa);
-    
-    if (tarefaIndex !== -1) {
-        tarefas[tarefaIndex].concluida = !tarefas[tarefaIndex].concluida;
-        updateCookie();
-    }
+function tarefaConcluida(tarefa) {
+    tarefa.concluida = !tarefa.concluida;
+    updateCookie();
+    atualizarTela(); // Atualiza a tela após a alteração
 }
+
+
 
 
 function deletar(textoTarefa) {
@@ -112,21 +108,29 @@ function atualizarTela() {
         if (!tarefa.excluido) {
             const newItem = document.createElement("li");
             newItem.className = "newitem";
-            newItem.addEventListener("click", tarefaConcluida);
-            newItem.textContent = tarefa.texto;
-
+            
             if (tarefa.concluida) {
                 newItem.classList.add("tarefaConcluida");
             }
+            
+            newItem.addEventListener("click", function() {
+                tarefaConcluida(tarefa); // Passa a tarefa diretamente
+            });
+            
+            newItem.textContent = tarefa.texto;
+
+            // Dentro da função atualizarTela()
 
             const removeButton = document.createElement("button");
             removeButton.textContent = "🗑️";
             removeButton.addEventListener("click", function() {
                 deletar(tarefa.texto);
+                atualizarTela(); // Chame essa função para atualizar a tela após a remoção
             });
 
-            newItem.appendChild(removeButton);
-            localTarefa.appendChild(newItem);
+            newItem.appendChild(removeButton); // Adicione o botão ao elemento <li>
+            localTarefa.appendChild(newItem); // Adicione o elemento <li> à lista
+
         }
     }
 }
