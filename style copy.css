@@ -1,0 +1,20 @@
+@charset "UTF-8";
+
+
+#localTarefas {
+    display: flex;
+    flex-direction: column;
+}
+
+.tarefaConcluida {
+    text-decoration: line-through;
+    order: 2;
+}
+
+.newitem:hover {
+    cursor: pointer;
+}
+
+.deletado {
+    color: pink;
+}

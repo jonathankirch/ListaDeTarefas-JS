@@ -60,3 +60,7 @@ li {
 .newitem:hover {
     cursor: pointer;
 }
+
+.deletado {
+    color: pink;
+}
