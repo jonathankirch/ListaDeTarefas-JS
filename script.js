@@ -63,6 +63,7 @@ function addTarefa() {
     
     let newItem = document.createElement("li");
     newItem.className = "newitem";
+    newItem.className = "slideAdd"
     newItem.addEventListener("click", tarefaConcluida);
     newItem.textContent = novaTarefa.texto;
 
