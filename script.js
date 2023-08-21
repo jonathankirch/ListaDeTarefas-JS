@@ -15,9 +15,14 @@ document.addEventListener('DOMContentLoaded', function() {
                 if (tarefa.concluida) {
                     newItem.classList.add("tarefaConcluida");
                 }
+
+                let img = document.createElement("img")
+                img.classList.add("img-delete")
+                img.src = "../img/delete_FILL0_wght400_GRAD0_opsz48.png"
+                img.alt = "Deletar"
                 
                 const removeButton = document.createElement("button");
-                removeButton.textContent = "🗑️";
+                removeButton.appendChild(img)
                 removeButton.dataset.index = index; // Armazena o índice da tarefa como atributo
                 removeButton.addEventListener("click", function(event) {
                     deletar(event.target.dataset.index);
@@ -67,8 +72,15 @@ function addTarefa() {
     newItem.addEventListener("click", tarefaConcluida);
     newItem.textContent = novaTarefa.texto;
 
+    // imagemmm
+
+    let img = document.createElement("img")
+    img.classList.add("img-delete")
+    img.src = "../img/delete_FILL0_wght400_GRAD0_opsz48.png"
+    img.alt = "Deletar"
+
     const removeButton = document.createElement("button");
-    removeButton.textContent = "🗑️";
+    removeButton.appendChild(img)
     removeButton.addEventListener("click", function() {
         deletar(novaTarefa.texto);
     });    
@@ -120,10 +132,13 @@ function atualizarTela() {
             
             newItem.textContent = tarefa.texto;
 
-            // Dentro da função atualizarTela()
+            let img = document.createElement("img")
+            img.classList.add("img-delete")
+            img.src = "../img/delete_FILL0_wght400_GRAD0_opsz48.png"
+            img.alt = "Deletar"
 
             const removeButton = document.createElement("button");
-            removeButton.textContent = "🗑️";
+            removeButton.appendChild(img)
             removeButton.addEventListener("click", function() {
                 deletar(tarefa.texto);
                 atualizarTela(); // Chame essa função para atualizar a tela após a remoção

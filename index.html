@@ -3,18 +3,25 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style2.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
     <title>Lista de Tarefas</title>
 
 
     <meta http-equiv="Permissions-Policy" content="policy-directives">
 </head>
 <body>
+    <header>
+        <h1>LIST</h1>
+        <p>Created by<br><a href="#">Jonathan Kirch</a></p>
+        <span class="material-symbols-outlined">
+            radio_button_unchecked
+            </span>
+    </header>
     <main>
         <div id="divInput">
-            <h1>Lista de Tarefas</h1>
             <input type="text" id="inputTarefa" placeholder="Novas Tarefas:">
-            <button id="addtarefa" onclick="addTarefa()">Adicionar</button>
+            <button id="addtarefa" onclick="addTarefa()"><img src="img/add_FILL0_wght400_GRAD0_opsz48.png" alt="Adicionar" id="adicionar"></button>
         </div>
         <div id="tarefas">
             <ul id="localTarefas">
