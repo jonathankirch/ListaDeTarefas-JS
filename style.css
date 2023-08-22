@@ -9,11 +9,11 @@
 }
 
 :root {
-    --cor1: #2c363f;
+    /* --cor1: #2c363f;
     --cor2: #e75a7c;
     --cor3: #F2F5EA;
     --cor4: #D6DBD2;
-    --cor5: #899179;
+    --cor5: #899179; */
 
 }
 
@@ -36,42 +36,68 @@ body{
     background-color: var(--cor1);
     font-family: Arial, Helvetica, sans-serif;
 }
-
-main {
-    background-color: var(--cor3);
-    margin: auto;
-    max-width: 800px;
-    min-height: 90vh;
-    border-radius: 30px;
-    padding: 30px 20px;
-}
-
-#divInput > h1 {
-    box-sizing: border-box;
+header {
+    border: 1px solid red; 
     display: flex;
-    margin: auto;
-    font-family: 'Preahvihear', sans-serif; 
-    background-color: var(--cor2);
-    color: white;
-    text-align: center;
-    border-radius: 30px;
-    max-width: 650px;
-    text-shadow: 2px 2px black;
-    height: 80px;
-    box-shadow: 1px 1px 4px 0px black;
-    justify-content: center;
+    flex-direction: column;
     align-items: center;
+    justify-content: center;
+    height: 200px;
+    position: relative;
 }
-
-#divInput {
+  
+header > h1 {
+    margin: 0;
+    text-align: center;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 70px;
+}
+  
+header > p {
+    margin: 15px;
+    position: absolute;
+    bottom: 0px;
+    right: 0px;
     text-align: center;
 }
 
-#divInput label, input, button {
-    font-size: 25px;
-    box-shadow: 1px 1px 4px 0px black;
-    margin-top: 20px;
-    margin-bottom: 50px;
+#divInput{
+    border: 1px solid green;
+    display: flex;
+    position: relative;
+    margin: auto;
+    width: 400px;
+    height: 40px;
+    align-items: center;
+    border-radius: 50px;
+    padding: 5px;
+    margin-top: 15px;
+}
+
+#divInput > input{
+    height: 35px;
+    width: 340px;
+    border: none;
+    outline: 0;
+    margin-left: 20px;
+}
+
+#divInput > button {
+    height: 35px;
+    width: 35px;
+    border-radius: 50px;
+    position: relative;
+}
+
+#adicionar {
+    position: absolute;
+    width: 30px;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
 }
 
 #localTarefas {
@@ -84,61 +110,39 @@ li {
     margin: auto;
     position: relative;
     font-size: 20px;
-    background-color: var(--cor4);
     width: 650px;
     display: inline-block;
-    margin-bottom: 15px;
+    margin-top: 20px;
     padding: 10px;
     border-radius: 15px;
-    box-shadow: 1px 1px 4px 0px black;
+    border: 1px solid black;
     transition: .5s;
+    cursor: pointer;
 }
 
-@media (max-width: 800px) {
-    main{
-        border-radius: 0;
-    }
-}
-@media (max-width: 700px) {
-    li{
-        width: 500px;
-    }
-}
-@media (max-width: 500px) {
-    li{
-        width: 400px;
-    }
-    input{
-        width: 200px;
-    }
-}
-
-li:hover{
-    background-color: #acacac;
-}
-
-li::before{
-    content: "☑️";
-}
+li::before {
+    content: "";
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    background-image: url('img/radio_button_unchecked_FILL0_wght400_GRAD0_opsz24.svg');
+    background-size: cover;
+    margin-right: 10px;
+  }
 
 li > button {
     position: absolute;
     right: 0;
     height: 100%;
-    top: -20px;
+    top: 0px;
     border-radius: 0px 15px 15px 0px;
     width: 100px;
-    background-color: rgb(52, 43, 43);
+    background-color: transparent;
+    border: 1px solid pink;
 }
 
-#inputTarefa{
-    border-radius: 10px;
-    border:1px solid var(--cor1);
-    transition: .5s;
-}
-
-#inputTarefa:hover{
-    background-color: #8991791e;
+button > img {
+    width: 40px;
 }
 
 #addtarefa{
@@ -148,10 +152,6 @@ li > button {
     transition: .5s;
 }
 
-#addtarefa:hover{
-    background-color: #D6DBD2;
-}
-
 .tarefaConcluida {
     text-decoration: line-through;
     order: 2;
@@ -159,10 +159,12 @@ li > button {
     color: #0000009c;
 }
 
-.tarefaConcluida::before{
-    content: "✅";
-}
-
-.newitem:hover {
-    cursor: pointer;
-}
+.tarefaConcluida::before {
+    content: "";
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    background-image: url('img/task_alt_FILL0_wght400_GRAD0_opsz24.svg');
+    background-size: cover;
+    margin-right: 10px;
+  }

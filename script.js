@@ -22,6 +22,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 img.alt = "Deletar"
                 
                 const removeButton = document.createElement("button");
+                removeButton.className = "removeButton"
                 removeButton.appendChild(img)
                 removeButton.dataset.index = index; // Armazena o índice da tarefa como atributo
                 removeButton.addEventListener("click", function(event) {
@@ -64,7 +65,7 @@ function addTarefa() {
         excluido: false
     };
 
-    tarefas.push(novaTarefa);
+    tarefas.push(novaTarefa); 
     
     let newItem = document.createElement("li");
     newItem.className = "newitem";
@@ -72,7 +73,7 @@ function addTarefa() {
     newItem.addEventListener("click", tarefaConcluida);
     newItem.textContent = novaTarefa.texto;
 
-    // imagemmm
+    // imagem lixo
 
     let img = document.createElement("img")
     img.classList.add("img-delete")
