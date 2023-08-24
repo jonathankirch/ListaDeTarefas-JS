@@ -178,6 +178,9 @@ button > img {
 
 
   @media (max-width: 359px) {
+    main{
+        margin-bottom: 70px;
+    }
     header {
         height: 170px;
     }
@@ -226,6 +229,9 @@ button > img {
 
 
   @media (min-width: 360px) and (max-width: 414px){
+    main{
+        margin-bottom: 70px;
+    }
     header {
         height: 170px;
     }
