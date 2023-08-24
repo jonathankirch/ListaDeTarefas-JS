@@ -34,7 +34,9 @@ document.addEventListener('DOMContentLoaded', function() {
                 localTarefa.appendChild(newItem);
             }
         }
-    }    
+    } 
+    const addButton = document.getElementById("addtarefa");
+    addButton.addEventListener("click", addTarefa);   
 });
 
 function getCookie(name) {
@@ -59,41 +61,41 @@ function addTarefa() {
     let inputTarefa = document.querySelector('#inputTarefa');
     let localTarefa = document.querySelector('#localTarefas');
     
-    const novaTarefa = {
-        texto: inputTarefa.value,
-        concluida: false,
-        excluido: false
-    };
-
-    tarefas.push(novaTarefa); 
+    if (inputTarefa.value !== ''){
+        const novaTarefa = {
+            texto: inputTarefa.value,
+            concluida: false,
+            excluido: false
+        };
+        tarefas.push(novaTarefa); 
+        
+        let newItem = document.createElement("li");
+        newItem.className = "newitem";
+        newItem.className = "slideAdd";
+        newItem.textContent = novaTarefa.texto;
     
-    let newItem = document.createElement("li");
-    newItem.className = "newitem";
-    newItem.className = "slideAdd"
-    newItem.addEventListener("click", tarefaConcluida);
-    newItem.textContent = novaTarefa.texto;
+        let img = document.createElement("img");
+        img.classList.add("img-delete");
+        img.src = "img/delete_FILL0_wght400_GRAD0_opsz40.svg";
+        img.alt = "Deletar";
+    
+        const removeButton = document.createElement("button");
+        removeButton.appendChild(img);
+        removeButton.addEventListener("click", function() {
+            deletar(novaTarefa.texto);
+            atualizarTela();
+        });    
+        newItem.appendChild(removeButton);
+    
+        localTarefa.appendChild(newItem);
+    
+        inputTarefa.value = "";
+        inputTarefa.focus();
+        updateCookie();
+    }
 
-    // imagem lixo
-
-    let img = document.createElement("img")
-    img.classList.add("img-delete")
-    img.src = "img/delete_FILL0_wght400_GRAD0_opsz40.svg"
-    img.alt = "Deletar"
-
-    const removeButton = document.createElement("button");
-    removeButton.appendChild(img)
-    removeButton.addEventListener("click", function() {
-        deletar(novaTarefa.texto);
-    });    
-    newItem.appendChild(removeButton);
-
-    localTarefa.appendChild(newItem);
-
-    inputTarefa.value = "";
-    inputTarefa.focus();
-    updateCookie();
-    //console.log(tarefas)
 }
+
 
 function tarefaConcluida(tarefa) {
     tarefa.concluida = !tarefa.concluida;
