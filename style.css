@@ -36,6 +36,7 @@ body{
     background-color: var(--cor1);
     font-family: Arial, Helvetica, sans-serif;
 }
+
 header {
     border: 1px solid red; 
     display: flex;
@@ -143,6 +144,10 @@ li > button {
 
 button > img {
     width: 40px;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
 }
 
 #addtarefa{
@@ -168,3 +173,85 @@ button > img {
     background-size: cover;
     margin-right: 10px;
   }
+
+
+  @media (max-width: 359px) {
+    header {
+        height: 170px;
+    }
+      
+    header > h1 {
+        font-size: 50px;
+    }
+      
+    header > p {
+        margin: 2px;
+        font-size: 14px;
+    }
+    #divInput{
+       height: 35px;
+       width: 250px;
+    }
+    
+    #divInput > input{
+        height: 17px;
+        width: 195px;
+        font-size: 15px;
+    }
+    
+    #divInput > button {
+        height: 35px;
+        width: 35px;
+    }
+    li {
+        max-width: 250px;
+    }
+    li > button {
+        max-width: 50px;
+    }
+    button > img{
+        width: 25px;
+    }
+  }
+
+
+  @media (min-width: 360px) and (max-width: 414px){
+    header {
+        height: 170px;
+    }
+      
+    header > h1 {
+        font-size: 50px;
+    }
+      
+    header > p {
+        margin: 2px;
+        font-size: 14px;
+    }
+    #divInput{
+       height: 35px;
+       width: 330px;
+    }
+    
+    #divInput > input{
+        height: 17px;
+        width: 275px;
+        font-size: 15px;
+    }
+    
+    #divInput > button {
+        height: 35px;
+        width: 35px;
+    }
+    li {
+        width: 350px;
+    }
+    li > button {
+        width: 50px;
+    }
+    button > img{
+        max-width: 25px;
+    }
+  }
+
+
