@@ -121,7 +121,6 @@ li {
     border: 1px solid black;
     transition: .5s;
     cursor: pointer;
-    user-select: none;
 }
 
 li::before {

@@ -86,6 +86,7 @@ function addTarefa() {
             atualizarTela();
         });    
         newItem.appendChild(removeButton);
+        newItem.style.userSelect = "none";
     
         localTarefa.appendChild(newItem);
     
