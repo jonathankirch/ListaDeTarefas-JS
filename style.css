@@ -240,21 +240,26 @@ button > img {
     }
 
     #divInput{
-       height: 35px;
-       width: 330px;
+        height: 45px;
+        width: 100%;
+        position: fixed;
+        bottom: 10px;
+        box-sizing: border-box;
     }
     
     #divInput > input{
         height: 17px;
-        width: 275px;
+        width: 250px;
         font-size: 15px;
+        box-sizing: border-box;
     }
     
     #divInput > button {
-        height: 35px;
-        width: 35px;
+        height: 30px;
+        width: 30px;
         position: absolute;
-        right: 5px;
+        right: 7px;
+        box-sizing: border-box;
     }
     li {
         width: 350px;
@@ -263,7 +268,7 @@ button > img {
         width: 50px;
     }
     button > img{
-        max-width: 25px;
+        width: 25px;
     }
   }
 
