@@ -6,7 +6,6 @@
 *{
     margin: 0;
     padding: 0;
-    user-select: none;
 }
 
 :root {
@@ -122,6 +121,7 @@ li {
     border: 1px solid black;
     transition: .5s;
     cursor: pointer;
+    user-select: none;
 }
 
 li::before {
