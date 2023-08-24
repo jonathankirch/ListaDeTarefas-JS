@@ -18,7 +18,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
                 let img = document.createElement("img")
                 img.classList.add("img-delete")
-                img.src = "../img/delete_FILL0_wght400_GRAD0_opsz40.svg"
+                img.src = "img/delete_FILL0_wght400_GRAD0_opsz40.svg"
                 img.alt = "Deletar"
                 
                 const removeButton = document.createElement("button");
