@@ -76,6 +76,8 @@ header > p {
     border-radius: 50px;
     padding: 5px;
     margin-top: 15px;
+    background-color: yellow;
+    z-index: 10;
 }
 
 #divInput > input{
@@ -188,20 +190,28 @@ button > img {
         margin: 2px;
         font-size: 14px;
     }
+
     #divInput{
-       height: 35px;
-       width: 250px;
+        height: 45px;
+        width: 100%;
+        position: fixed;
+        bottom: 10px;
+        box-sizing: border-box;
     }
     
     #divInput > input{
         height: 17px;
-        width: 195px;
+        width: 190px;
         font-size: 15px;
+        box-sizing: border-box;
     }
     
     #divInput > button {
-        height: 35px;
-        width: 35px;
+        height: 30px;
+        width: 30px;
+        position: absolute;
+        right: 7px;
+        box-sizing: border-box;
     }
     li {
         max-width: 250px;
@@ -228,6 +238,7 @@ button > img {
         margin: 2px;
         font-size: 14px;
     }
+
     #divInput{
        height: 35px;
        width: 330px;
@@ -242,6 +253,8 @@ button > img {
     #divInput > button {
         height: 35px;
         width: 35px;
+        position: absolute;
+        right: 5px;
     }
     li {
         width: 350px;
