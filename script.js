@@ -1,4 +1,7 @@
 document.addEventListener('DOMContentLoaded', function() {
+    document.addEventListener('selectstart', function(e) {
+        e.preventDefault();
+    });
     const cookieData = getCookie('tarefas');
     if (cookieData) {
         tarefas = JSON.parse(cookieData);
