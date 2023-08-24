@@ -77,7 +77,7 @@ function addTarefa() {
 
     let img = document.createElement("img")
     img.classList.add("img-delete")
-    img.src = "../img/delete_FILL0_wght400_GRAD0_opsz48.png"
+    img.src = "img/delete_FILL0_wght400_GRAD0_opsz40.svg"
     img.alt = "Deletar"
 
     const removeButton = document.createElement("button");
@@ -135,7 +135,7 @@ function atualizarTela() {
 
             let img = document.createElement("img")
             img.classList.add("img-delete")
-            img.src = "../img/delete_FILL0_wght400_GRAD0_opsz48.png"
+            img.src = "img/delete_FILL0_wght400_GRAD0_opsz40.svg"
             img.alt = "Deletar"
 
             const removeButton = document.createElement("button");
