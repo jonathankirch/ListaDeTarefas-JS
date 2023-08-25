@@ -9,20 +9,19 @@ document.addEventListener('DOMContentLoaded', function() {
             if (!tarefa.excluido) { // Verifica se a tarefa não está marcada como excluída
                 const newItem = document.createElement("li");
                 newItem.className = "newitem";
-                newItem.addEventListener("click", tarefaConcluida);
-                newItem.textContent = tarefa.texto;
                 
                 if (tarefa.concluida) {
                     newItem.classList.add("tarefaConcluida");
                 }
+                
+                newItem.textContent = tarefa.texto;
 
                 let img = document.createElement("img")
                 img.classList.add("img-delete")
                 img.src = "img/delete_FILL0_wght400_GRAD0_opsz40.svg"
                 img.alt = "Deletar"
-                
+
                 const removeButton = document.createElement("button");
-                removeButton.className = "removeButton"
                 removeButton.appendChild(img)
                 removeButton.dataset.index = index; // Armazena o índice da tarefa como atributo
                 removeButton.addEventListener("click", function(event) {
@@ -32,6 +31,10 @@ document.addEventListener('DOMContentLoaded', function() {
                 
                 newItem.appendChild(removeButton);
                 localTarefa.appendChild(newItem);
+                
+                newItem.addEventListener("click", function() {
+                    tarefaConcluida(index); // Passa o índice da tarefa
+                });                
             }
         }
     } 
@@ -61,7 +64,7 @@ function addTarefa() {
     let inputTarefa = document.querySelector('#inputTarefa');
     let localTarefa = document.querySelector('#localTarefas');
     
-    if (inputTarefa.value !== ''){
+    if (inputTarefa.value.trim() !== ''){ // Verifica se o valor não é apenas espaços em branco
         const novaTarefa = {
             texto: inputTarefa.value,
             concluida: false,
@@ -86,20 +89,25 @@ function addTarefa() {
             atualizarTela();
         });    
         newItem.appendChild(removeButton);
-        newItem.style.userSelect = "none";
     
         localTarefa.appendChild(newItem);
+    
+        newItem.addEventListener("click", function() {
+            tarefaConcluida(tarefas.length - 1); // Passa o índice da tarefa recém-adicionada
+        });
     
         inputTarefa.value = "";
         inputTarefa.focus();
         updateCookie();
+    
+        atualizarTela(); // Chame a função para atualizar a tela e associar o event listener corretamente
     }
-
 }
 
 
-function tarefaConcluida(tarefa) {
-    tarefa.concluida = !tarefa.concluida;
+
+function tarefaConcluida(index) {
+    tarefas[index].concluida = !tarefas[index].concluida;
     updateCookie();
     atualizarTela(); // Atualiza a tela após a alteração
 }
@@ -121,29 +129,25 @@ function atualizarTela() {
     const localTarefa = document.querySelector('#localTarefas');
     localTarefa.innerHTML = ''; // Limpa o conteúdo anterior
 
-    for (const tarefa of tarefas) {
+    for (const [index, tarefa] of tarefas.entries()) {
         if (!tarefa.excluido) {
             const newItem = document.createElement("li");
             newItem.className = "newitem";
-            
+
             if (tarefa.concluida) {
                 newItem.classList.add("tarefaConcluida");
             }
-            
-            newItem.addEventListener("click", function() {
-                tarefaConcluida(tarefa); // Passa a tarefa diretamente
-            });
-            
+
             newItem.textContent = tarefa.texto;
 
-            let img = document.createElement("img")
-            img.classList.add("img-delete")
-            img.src = "img/delete_FILL0_wght400_GRAD0_opsz40.svg"
-            img.alt = "Deletar"
+            let img = document.createElement("img");
+            img.classList.add("img-delete");
+            img.src = "img/delete_FILL0_wght400_GRAD0_opsz40.svg";
+            img.alt = "Deletar";
 
             const removeButton = document.createElement("button");
-            removeButton.appendChild(img)
-            removeButton.addEventListener("click", function() {
+            removeButton.appendChild(img);
+            removeButton.addEventListener("click", function () {
                 deletar(tarefa.texto);
                 atualizarTela(); // Chame essa função para atualizar a tela após a remoção
             });
@@ -151,9 +155,13 @@ function atualizarTela() {
             newItem.appendChild(removeButton); // Adicione o botão ao elemento <li>
             localTarefa.appendChild(newItem); // Adicione o elemento <li> à lista
 
+            newItem.addEventListener("click", function () {
+                tarefaConcluida(index); // Passa o índice da tarefa
+            });
         }
     }
 }
+
 
 function updateCookie() {
     document.cookie = `tarefas=${JSON.stringify(tarefas)}; expires=Thu, 01 Jan 2099 00:00:00 UTC; path=/`;

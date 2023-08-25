@@ -77,7 +77,7 @@ header > p {
     padding: 5px;
     margin-top: 15px;
     background-color: yellow;
-    z-index: 10;
+    z-index: 3;
 }
 
 #divInput > input{
@@ -106,6 +106,7 @@ header > p {
 #localTarefas {
     display: flex;
     flex-direction: column;
+    z-index: 2;
 }
 
 li {
