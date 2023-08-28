@@ -6,7 +6,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const localTarefa = document.querySelector('#localTarefas');
 
         for (const [index, tarefa] of tarefas.entries()) {
-            if (!tarefa.excluido) { // Verifica se a tarefa não está marcada como excluída
+            if (!tarefa.excluido) {
                 const newItem = document.createElement("li");
                 newItem.className = "newitem";
                 
@@ -16,30 +16,34 @@ document.addEventListener('DOMContentLoaded', function() {
                 
                 newItem.textContent = tarefa.texto;
 
-                let img = document.createElement("img")
-                img.classList.add("img-delete")
-                img.src = "img/delete_FILL0_wght400_GRAD0_opsz40.svg"
-                img.alt = "Deletar"
+                let img = document.createElement("img");
+                img.classList.add("img-delete");
+                img.src = "img/delete_FILL0_wght400_GRAD0_opsz40.svg";
+                img.alt = "Deletar";
 
                 const removeButton = document.createElement("button");
-                removeButton.appendChild(img)
-                removeButton.dataset.index = index; // Armazena o índice da tarefa como atributo
+                removeButton.appendChild(img);
+                removeButton.dataset.index = index;
                 removeButton.addEventListener("click", function(event) {
                     deletar(event.target.dataset.index);
-                    atualizarTela(); // Atualiza a tela após a exclusão
+                    atualizarTela();
+                    atualizarBarraDeProgresso();
                 });
                 
                 newItem.appendChild(removeButton);
                 localTarefa.appendChild(newItem);
                 
                 newItem.addEventListener("click", function() {
-                    tarefaConcluida(index); // Passa o índice da tarefa
+                    tarefaConcluida(tarefas.indexOf(tarefa));
+                    atualizarBarraDeProgresso();
                 });                
             }
         }
     } 
     const addButton = document.getElementById("addtarefa");
-    addButton.addEventListener("click", addTarefa);   
+    addButton.addEventListener("click", addTarefa);
+    
+    atualizarBarraDeProgresso();
 });
 
 function getCookie(name) {
@@ -84,10 +88,11 @@ function addTarefa() {
     
         const removeButton = document.createElement("button");
         removeButton.appendChild(img);
-        removeButton.addEventListener("click", function() {
-            deletar(novaTarefa.texto);
+        removeButton.addEventListener("click", function () {
+            deletar(tarefa);
             atualizarTela();
-        });    
+            atualizarBarraDeProgresso();
+        });  
         newItem.appendChild(removeButton);
     
         localTarefa.appendChild(newItem);
@@ -100,7 +105,7 @@ function addTarefa() {
         inputTarefa.focus();
         updateCookie();
     
-        atualizarTela(); // Chame a função para atualizar a tela e associar o event listener corretamente
+        atualizarTela();   
     }
 }
 
@@ -126,8 +131,15 @@ function deletar(textoTarefa) {
 }
 
 function atualizarTela() {
+    const tarefasConcluidas = tarefas.filter(tarefa => tarefa.concluida).length;
+
     const localTarefa = document.querySelector('#localTarefas');
+    const Bar = document.querySelector('#bar');
+    const progressText = document.querySelector('#progressText');
+
     localTarefa.innerHTML = ''; // Limpa o conteúdo anterior
+    Bar.style.width = calculateProgress() + '%'; // Atualiza a largura da barra de progresso
+    progressText.textContent = `${tarefasConcluidas} / ${tarefas.length}`;
 
     for (const [index, tarefa] of tarefas.entries()) {
         if (!tarefa.excluido) {
@@ -156,12 +168,35 @@ function atualizarTela() {
             localTarefa.appendChild(newItem); // Adicione o elemento <li> à lista
 
             newItem.addEventListener("click", function () {
-                tarefaConcluida(index); // Passa o índice da tarefa
+                tarefaConcluida(tarefas.indexOf(tarefa)); // Passa o índice da tarefa
             });
         }
     }
 }
 
+
+function calculateProgress() {
+    const totalTarefas = tarefas.length;
+    const tarefasConcluidas = tarefas.filter(tarefa => tarefa.concluida).length;
+    
+    if (totalTarefas === 0) {
+        return 0;
+    }
+    
+    return (tarefasConcluidas / totalTarefas) * 100;
+}
+
+function atualizarBarraDeProgresso() {
+    const tarefasConcluidas = tarefas.filter(tarefa => tarefa.concluida).length;
+    const totalTarefas = tarefas.length;
+    const progresso = calculateProgress(tarefasConcluidas, totalTarefas);
+
+    const barraDeProgresso = document.querySelector('#bar');
+    barraDeProgresso.style.width = `${progresso}%`;
+
+    const progressText = document.querySelector('#progressText');
+    progressText.textContent = `${tarefasConcluidas} / ${totalTarefas}`;
+}
 
 function updateCookie() {
     document.cookie = `tarefas=${JSON.stringify(tarefas)}; expires=Thu, 01 Jan 2099 00:00:00 UTC; path=/`;
