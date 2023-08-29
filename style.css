@@ -17,24 +17,28 @@
 
 }
 
-  @keyframes appearFromCenter {
+@keyframes appearFromCenter {
     0% {
-      transform: translateX(-50%) scale(0);
-      opacity: 0;
+        transform: translateX(-50%) scale(0);
+        opacity: 0;
     }
     100% {
-      transform: translateX(0) scale(1);
-      opacity: 1;
+        transform: translateX(0) scale(1);
+        opacity: 1;
     }
-  }
+}
   
-  .slideAdd {
-    animation: appearFromCenter 0.5s ease;
-  }
+.slideAdd {
+animation: appearFromCenter 0.5s ease;
+}
 
 body{
     background-color: var(--cor1);
     font-family: Arial, Helvetica, sans-serif;
+}
+
+main{
+    margin-bottom: 40px;
 }
 
 header {
@@ -119,12 +123,13 @@ li {
     padding: 10px;
     border-radius: 15px;
     border: 1px solid black;
-    transition: .2s;
+    transition: .4s;
     cursor: pointer;
 }
 
 li:hover{
     width: 700px;
+    height: 50px;
 }
 
 li::before {
@@ -209,7 +214,7 @@ button > img {
   
   @media (max-width: 359px) {
     main{
-        margin-bottom: 70px;
+        margin-bottom: 90px;
     }
     header {
         height: 170px;
@@ -265,7 +270,7 @@ button > img {
 
   @media (min-width: 360px) and (max-width: 414px){
     main{
-        margin-bottom: 70px;
+        margin-bottom: 90px;
     }
     header {
         height: 170px;
